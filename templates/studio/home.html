@@ -1,0 +1,17 @@
+{% extends "studio/base.html" %}
+{% block title %}Dashboard — {{ site.studio_name }}{% endblock %}
+{% block studio %}
+<h1 class="h2">Overview</h1>
+{% if not whatsapp_ready %}<div class="note"><i data-lucide="alert-triangle"></i><div><strong>WhatsApp isn't configured yet.</strong> <a href="{% url 'dash_settings' %}">Add your number</a> so the floating button opens a chat.</div></div>{% endif %}
+<div class="cells cols-4 kpis">{% for label, n in status_counts %}<div class="cell"><strong>{{ n }}</strong><span class="muted">{{ label }}</span></div>{% endfor %}</div>
+<div class="two-col">
+  <div>
+    <div class="split"><h2 class="h3">Latest enquiries</h2><a class="link" href="{% url 'dash_enquiries' %}">View all <i data-lucide="arrow-right"></i></a></div>
+    {% if recent %}<div class="table-wrap"><table class="table"><tbody>{% for e in recent %}<tr><td><a href="{% url 'dash_enquiry' e.pk %}"><strong>{{ e.name }}</strong></a><br><span class="muted small">{{ e.service|default:"General" }}</span></td><td>{% include "partials/status.html" %}</td><td class="muted small right">{{ e.created_at|date:"d M" }}</td></tr>{% endfor %}</tbody></table></div>{% else %}<p class="muted">No enquiries yet.</p>{% endif %}
+  </div>
+  <div>
+    <h2 class="h3">Content</h2>
+    <ul class="list">{% for label, n, k in content_counts %}<li><a href="{% url 'dash_list' k %}">{{ label }}</a><span class="mono">{{ n }}</span></li>{% endfor %}<li><span>Registered clients</span><span class="mono">{{ customers }}</span></li></ul>
+  </div>
+</div>
+{% endblock %}

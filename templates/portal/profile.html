@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Profile — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><a class="back mono" href="{% url 'portal_home' %}"><i data-lucide="arrow-left"></i> My portal</a><h1>Your <span class="serif">profile.</span></h1></div></section>
+<section class="section"><div class="container narrow">
+  <form method="post" class="form" novalidate>{% csrf_token %}{% include "partials/form_fields.html" %}<div class="actions"><button class="btn btn-primary" type="submit">Save changes</button><a class="btn btn-ghost" href="{% url 'portal_password' %}">Change password</a></div></form>
+</div></section>
+{% endblock %}

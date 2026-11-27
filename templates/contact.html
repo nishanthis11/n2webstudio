@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Contact & FAQ — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><p class="eyebrow mono">Contact</p><h1>Let's build <span class="serif">something.</span></h1><p class="lead">Share a few details and we'll reply with next steps.</p></div></section>
+<section class="section"><div class="container contact-grid">
+  <aside class="contact-info">
+    <a class="info" href="mailto:{{ site.email }}"><i data-lucide="mail"></i><span><small class="mono">Email</small>{{ site.email }}</span></a>
+    <a class="info" href="{{ whatsapp_url }}" {% if whatsapp_ready %}target="_blank" rel="noopener"{% endif %}><i data-lucide="message-circle"></i><span><small class="mono">WhatsApp</small>{% if whatsapp_ready %}Chat with us{% else %}Use the enquiry form{% endif %}</span></a>
+    {% if site.phone %}<a class="info" href="tel:{{ site.phone }}"><i data-lucide="phone"></i><span><small class="mono">Phone</small>{{ site.phone }}</span></a>{% endif %}
+    {% if site.location %}<div class="info"><i data-lucide="map-pin"></i><span><small class="mono">Studio</small>{{ site.location }}</span></div>{% endif %}
+    <div class="note">{% if user.is_authenticated %}<i data-lucide="check-circle-2"></i> This enquiry will be linked to your account so you can track it in your portal.{% else %}<i data-lucide="info"></i> <a href="{% url 'login' %}?next={% url 'contact' %}">Log in</a> or <a href="{% url 'register' %}">create an account</a> first to track your enquiry's status live.{% endif %}</div>
+  </aside>
+  <form method="post" class="form" id="enquiry" novalidate>
+    {% csrf_token %}
+    <div class="hp" aria-hidden="true">{{ form.website }}</div>
+    {% if form.non_field_errors %}<div class="msg msg-error">{{ form.non_field_errors }}</div>{% endif %}
+    <div class="row">{% include "partials/field.html" with field=form.name %}{% include "partials/field.html" with field=form.email %}</div>
+    <div class="row">{% include "partials/field.html" with field=form.phone %}{% include "partials/field.html" with field=form.business_name %}</div>
+    {% include "partials/field.html" with field=form.service %}
+    {% include "partials/field.html" with field=form.brief %}
+    <button class="btn btn-primary" type="submit">Send enquiry <i data-lucide="send"></i></button>
+  </form>
+</div></section>
+
+<section class="section alt" id="faq"><div class="container narrow">
+  <div class="head"><p class="eyebrow mono">FAQ</p><h2>Common <span class="serif">questions.</span></h2></div>
+  <div class="faq">
+    {% for f in faqs %}<details><summary>{{ f.question }}<i data-lucide="plus"></i></summary><p class="muted">{{ f.answer }}</p></details>{% empty %}<p class="muted">FAQs will appear here once added in the studio dashboard.</p>{% endfor %}
+  </div>
+</div></section>
+{% endblock %}

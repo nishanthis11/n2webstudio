@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} — {{ site.studio_name }}{% endblock %}
+{% block description %}{{ project.summary }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container">
+  <a class="back mono" href="{% url 'portfolio' %}"><i data-lucide="arrow-left"></i> Portfolio</a>
+  <h1>{{ project.title }}</h1>
+  <p class="lead">{{ project.summary }}</p>
+  <div class="meta"><span class="mono">{{ project.get_category_display }}</span>{% if project.is_demo %}<span class="badge">Demo project — not a client engagement</span>{% endif %}</div>
+</div></section>
+<section class="section"><div class="container detail">
+  <div class="thumb big">{% if project.image %}<img src="{{ project.image.url }}" alt="{{ project.title }}">{% else %}<div class="ph" aria-hidden="true"><div class="ph-bar"><i></i><i></i><i></i></div><div class="ph-body"><b></b><b></b><b></b><em>{{ project.title|slice:":1" }}</em></div></div>{% endif %}</div>
+  <div>
+    <h3>About this project</h3>
+    <p class="prose">{{ project.description|default:project.summary|linebreaksbr }}</p>
+    {% if project.tech_list %}<h3>Tech stack</h3><div class="tags">{% for t in project.tech_list %}<span>{{ t }}</span>{% endfor %}</div>{% endif %}
+    <div class="actions">
+      {% if project.live_url %}<a class="btn btn-primary" href="{{ project.live_url }}" target="_blank" rel="noopener">Visit live site <i data-lucide="arrow-up-right"></i></a>{% endif %}
+      <a class="btn btn-ghost" href="{% url 'contact' %}#enquiry">Start a similar project</a>
+    </div>
+  </div>
+</div></section>
+{% if related %}<section class="section alt"><div class="container"><div class="head"><h2>More in <span class="serif">{{ project.get_category_display }}</span></h2></div><div class="grid cols-3">{% for p in related %}{% include "partials/project_card.html" %}{% endfor %}</div></div></section>{% endif %}
+{% endblock %}

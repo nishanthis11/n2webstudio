@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Services — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><p class="eyebrow mono">Services</p><h1>What we <span class="serif">build.</span></h1><p class="lead">Six focused services, delivered end to end by one team.</p></div></section>
+<section class="section"><div class="container">
+  <div class="cells cols-2 reveal">
+    {% for s in services %}
+    <article class="cell service" id="{{ s.slug }}">
+      <i data-lucide="{{ s.icon }}"></i>
+      <h3>{{ s.title }}</h3>
+      <p class="muted">{{ s.summary }}</p>
+      {% if s.deliverable_list %}<ul class="ticks">{% for d in s.deliverable_list %}<li><i data-lucide="check"></i>{{ d }}</li>{% endfor %}</ul>{% endif %}
+      <a class="btn btn-ghost btn-sm" href="{% url 'contact' %}?service={{ s.slug }}#enquiry">Enquire about this <i data-lucide="arrow-right"></i></a>
+    </article>
+    {% empty %}<p class="muted pad">Services will appear here once added in the studio dashboard.</p>{% endfor %}
+  </div>
+</div></section>
+{% endblock %}

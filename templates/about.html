@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}About — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><p class="eyebrow mono">About us</p><h1>Who <span class="serif">we are.</span></h1><p class="lead">{{ site.who_we_are }}</p></div></section>
+
+<section class="section"><div class="container two">
+  <div class="panel"><p class="eyebrow mono">Vision</p><p class="big">{{ site.vision }}</p></div>
+  <div class="panel"><p class="eyebrow mono">Mission</p><p class="big">{{ site.mission }}</p></div>
+</div></section>
+
+<section class="section alt"><div class="container">
+  <div class="head"><p class="eyebrow mono">Why choose us</p><h2>A studio that <span class="serif">shows up.</span></h2></div>
+  <div class="cells cols-4 reveal">
+    <div class="cell"><i data-lucide="pen-tool"></i><h3>Design with intent</h3><p class="muted">Every layout decision is tied to a business goal.</p></div>
+    <div class="cell"><i data-lucide="code"></i><h3>Clean engineering</h3><p class="muted">Readable, documented code that is easy to extend.</p></div>
+    <div class="cell"><i data-lucide="eye"></i><h3>Transparent process</h3><p class="muted">You always know what stage your project is at.</p></div>
+    <div class="cell"><i data-lucide="life-buoy"></i><h3>Support after launch</h3><p class="muted">Maintenance plans so your site never goes stale.</p></div>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <div class="head"><p class="eyebrow mono">Studio workflow</p><h2>From first call to <span class="serif">launch.</span></h2></div>
+  <ol class="steps reveal">
+    <li><span class="mono">01</span><h3>Discover</h3><p class="muted">We learn your business, audience and goals, then agree scope and timeline.</p></li>
+    <li><span class="mono">02</span><h3>Design</h3><p class="muted">Wireframes and visual design you can review and refine with us.</p></li>
+    <li><span class="mono">03</span><h3>Build</h3><p class="muted">Responsive development with regular progress updates in your portal.</p></li>
+    <li><span class="mono">04</span><h3>Launch &amp; support</h3><p class="muted">Testing, deployment and ongoing maintenance when you need it.</p></li>
+  </ol>
+</div></section>
+
+<section class="section cta"><div class="container cta-in"><h2>Ready to <span class="serif">talk?</span></h2><div class="actions"><a class="btn btn-primary" href="{% url 'contact' %}">Send an enquiry</a><a class="btn btn-ghost" href="{% url 'services' %}">Explore services</a></div></div></section>
+{% endblock %}

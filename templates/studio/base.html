@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block nav %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block wa %}{% endblock %}
+{% block body_class %}studio-body{% endblock %}
+{% block content %}
+{% with u=request.resolver_match.url_name %}
+<div class="studio">
+  <aside class="side">
+    <a class="logo" href="{% url 'dash_home' %}"><span class="logo-mark">N2</span><span class="logo-word">Studio admin</span></a>
+    <nav>
+      <a href="{% url 'dash_home' %}" class="{% if u == 'dash_home' %}active{% endif %}"><i data-lucide="layout-dashboard"></i>Overview</a>
+      <a href="{% url 'dash_enquiries' %}" class="{% if u == 'dash_enquiries' or u == 'dash_enquiry' %}active{% endif %}"><i data-lucide="inbox"></i>Enquiries</a>
+      <a href="{% url 'dash_list' 'projects' %}" class="{% if key == 'projects' %}active{% endif %}"><i data-lucide="folder-kanban"></i>Portfolio</a>
+      <a href="{% url 'dash_list' 'services' %}" class="{% if key == 'services' %}active{% endif %}"><i data-lucide="layers"></i>Services</a>
+      <a href="{% url 'dash_list' 'testimonials' %}" class="{% if key == 'testimonials' %}active{% endif %}"><i data-lucide="quote"></i>Testimonials</a>
+      <a href="{% url 'dash_list' 'faqs' %}" class="{% if key == 'faqs' %}active{% endif %}"><i data-lucide="circle-help"></i>FAQs</a>
+      <a href="{% url 'dash_settings' %}" class="{% if u == 'dash_settings' %}active{% endif %}"><i data-lucide="settings"></i>Site &amp; contact</a>
+    </nav>
+    <div class="side-foot">
+      <a href="{% url 'home' %}" target="_blank" rel="noopener"><i data-lucide="external-link"></i>View site</a>
+      <button class="side-btn" type="button" data-theme-toggle><i data-lucide="sun" class="i-sun"></i><i data-lucide="moon" class="i-moon"></i>Theme</button>
+      <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="side-btn" type="submit"><i data-lucide="log-out"></i>Log out</button></form>
+    </div>
+  </aside>
+  <div class="studio-main">{% block studio %}{% endblock %}</div>
+</div>
+{% endwith %}
+{% endblock %}

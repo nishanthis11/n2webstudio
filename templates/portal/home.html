@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}My portal — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container split">
+  <div><p class="eyebrow mono">Client portal</p><h1>Hello, <span class="serif">{{ user.first_name|default:user.username }}.</span></h1></div>
+  <div class="actions"><a class="btn btn-primary" href="{% url 'contact' %}#enquiry">New enquiry <i data-lucide="plus"></i></a><a class="btn btn-ghost" href="{% url 'portal_profile' %}">Profile</a></div>
+</div></section>
+<section class="section"><div class="container">
+  <div class="cells cols-4 kpis">{% for label, n in counts %}<div class="cell"><strong>{{ n }}</strong><span class="muted">{{ label }}</span></div>{% endfor %}</div>
+  <h2 class="h3">Your enquiries</h2>
+  {% if enquiries %}
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th>#</th><th>Service</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
+    <tbody>{% for e in enquiries %}<tr>
+      <td class="mono">{{ e.pk }}</td><td>{{ e.service|default:"General" }}</td><td>{{ e.created_at|date:"d M Y" }}</td>
+      <td>{% include "partials/status.html" %}</td>
+      <td class="right"><a class="link" href="{% url 'portal_enquiry' e.pk %}">Track <i data-lucide="arrow-right"></i></a></td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  {% else %}
+  <div class="empty"><i data-lucide="inbox"></i><h3>No enquiries yet</h3><p class="muted">Tell us about your project and we'll start tracking it here.</p><a class="btn btn-primary" href="{% url 'contact' %}#enquiry">Submit your first enquiry</a></div>
+  {% endif %}
+</div></section>
+{% endblock %}

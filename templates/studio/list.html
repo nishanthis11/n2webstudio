@@ -1,0 +1,12 @@
+{% extends "studio/base.html" %}
+{% block title %}{{ cfg.plural }} — Studio{% endblock %}
+{% block studio %}
+<div class="split"><h1 class="h2">{{ cfg.plural }}</h1><a class="btn btn-primary btn-sm" href="{% url 'dash_new' key %}"><i data-lucide="plus"></i> Add {{ cfg.label|lower }}</a></div>
+{% if rows %}
+<div class="table-wrap"><table class="table">
+  <thead><tr>{% for h in headers %}<th>{{ h }}</th>{% endfor %}<th></th></tr></thead>
+  <tbody>{% for obj, cells in rows %}<tr>{% for c in cells %}<td>{% if forloop.first %}<strong>{{ c }}</strong>{% else %}{{ c }}{% endif %}</td>{% endfor %}
+    <td class="right nowrap"><a class="link" href="{% url 'dash_edit' key obj.pk %}">Edit</a> &nbsp; <a class="link danger" href="{% url 'dash_delete' key obj.pk %}">Delete</a></td></tr>{% endfor %}</tbody>
+</table></div>
+{% else %}<div class="empty"><i data-lucide="folder-open"></i><h3>Nothing here yet</h3><a class="btn btn-primary" href="{% url 'dash_new' key %}">Add {{ cfg.label|lower }}</a></div>{% endif %}
+{% endblock %}

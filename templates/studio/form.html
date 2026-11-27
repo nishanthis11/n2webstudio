@@ -1,0 +1,12 @@
+{% extends "studio/base.html" %}
+{% block title %}{% if obj %}Edit{% else %}Add{% endif %} {{ cfg.label|lower }} — Studio{% endblock %}
+{% block studio %}
+<a class="back mono" href="{% url 'dash_list' key %}"><i data-lucide="arrow-left"></i> {{ cfg.plural }}</a>
+<h1 class="h2">{% if obj %}Edit{% else %}Add{% endif %} {{ cfg.label|lower }}</h1>
+<form method="post" enctype="multipart/form-data" class="form wide" novalidate>
+  {% csrf_token %}
+  {% include "partials/form_fields.html" %}
+  {% if obj and obj.image %}<p class="muted small">Current image: <a href="{{ obj.image.url }}" target="_blank" rel="noopener">view</a></p>{% endif %}
+  <div class="actions"><button class="btn btn-primary" type="submit">Save</button><a class="btn btn-ghost" href="{% url 'dash_list' key %}">Cancel</a></div>
+</form>
+{% endblock %}

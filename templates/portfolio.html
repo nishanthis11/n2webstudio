@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Portfolio — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><p class="eyebrow mono">Portfolio</p><h1>Our <span class="serif">work.</span></h1><p class="lead">Projects marked “Demo project” are concept pieces made by our studio, not client engagements.</p></div></section>
+<section class="section"><div class="container">
+  {% if categories %}<div class="chips" role="group" aria-label="Filter projects">
+    <button type="button" class="chip active" data-filter="all">All</button>
+    {% for key, label in categories %}<button type="button" class="chip" data-filter="{{ key }}">{{ label }}</button>{% endfor %}
+  </div>{% endif %}
+  <div class="grid cols-3">{% for p in projects %}{% include "partials/project_card.html" %}{% empty %}<p class="muted">No projects yet — add them from the studio dashboard.</p>{% endfor %}</div>
+</div></section>
+{% endblock %}

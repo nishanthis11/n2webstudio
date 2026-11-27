@@ -1,0 +1,8 @@
+<a class="card project" href="{% url 'portfolio_detail' p.slug %}" data-category="{{ p.category }}">
+  <div class="thumb">{% if p.image %}<img src="{{ p.image.url }}" alt="{{ p.title }} preview" loading="lazy">{% else %}<div class="ph" aria-hidden="true"><div class="ph-bar"><i></i><i></i><i></i></div><div class="ph-body"><b></b><b></b><b></b><em>{{ p.title|slice:":1" }}</em></div></div>{% endif %}</div>
+  <div class="meta"><span class="mono">{{ p.get_category_display }}</span>{% if p.is_demo %}<span class="badge">Demo project</span>{% endif %}</div>
+  <h3>{{ p.title }}</h3>
+  <p class="muted">{{ p.summary }}</p>
+  <div class="tags">{% for t in p.tech_list %}<span>{{ t }}</span>{% endfor %}</div>
+  <span class="link">View Project <i data-lucide="arrow-up-right"></i></span>
+</a>

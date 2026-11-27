@@ -1,0 +1,7 @@
+{% extends "studio/base.html" %}
+{% block title %}Site & contact — Studio{% endblock %}
+{% block studio %}
+<h1 class="h2">Site content &amp; contact settings</h1>
+<p class="muted">Controls the hero text, About page copy, stats, email, phone and WhatsApp across the site.</p>
+<form method="post" class="form wide" novalidate>{% csrf_token %}{% include "partials/form_fields.html" %}<button class="btn btn-primary" type="submit">Save settings</button></form>
+{% endblock %}

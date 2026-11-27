@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Login — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="section auth"><div class="container narrow">
+  <div class="auth-card">
+    <p class="eyebrow mono">Welcome back</p>
+    <h1>Log in</h1>
+    <p class="muted">Clients and the studio team sign in here — you'll be routed to the right place automatically.</p>
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {% include "partials/form_fields.html" %}
+      <button class="btn btn-primary full" type="submit">Log in <i data-lucide="arrow-right"></i></button>
+    </form>
+    <p class="muted small">New here? <a href="{% url 'register' %}">Create a client account</a></p>
+  </div>
+</div></section>
+{% endblock %}

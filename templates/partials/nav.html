@@ -1,0 +1,24 @@
+{% with u=request.resolver_match.url_name %}
+<header class="nav">
+  <div class="container nav-in">
+    <a class="logo" href="{% url 'home' %}" aria-label="{{ site.studio_name }} home"><span class="logo-mark">N2</span><span class="logo-word">Web Studio</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="{% url 'home' %}" class="{% if u == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'about' %}" class="{% if u == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'services' %}" class="{% if u == 'services' %}active{% endif %}">Services</a>
+      <a href="{% url 'portfolio' %}" class="{% if u == 'portfolio' or u == 'portfolio_detail' %}active{% endif %}">Portfolio</a>
+      <a href="{% url 'contact' %}" class="{% if u == 'contact' %}active{% endif %}">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle light and dark mode"><i data-lucide="sun" class="i-sun"></i><i data-lucide="moon" class="i-moon"></i></button>
+      {% if user.is_authenticated %}
+        <a class="btn btn-ghost btn-sm" href="{% if user.is_staff %}{% url 'dash_home' %}{% else %}{% url 'portal_home' %}{% endif %}">{% if user.is_staff %}Dashboard{% else %}My portal{% endif %}</a>
+        <form method="post" action="{% url 'logout' %}" class="inline">{% csrf_token %}<button class="btn btn-solid btn-sm" type="submit">Log out</button></form>
+      {% else %}
+        <a class="btn btn-solid btn-sm" href="{% url 'login' %}">Login</a>
+      {% endif %}
+      <button class="icon-btn nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+</header>
+{% endwith %}

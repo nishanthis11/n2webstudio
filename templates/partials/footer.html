@@ -1,0 +1,24 @@
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="logo" href="{% url 'home' %}"><span class="logo-mark">N2</span><span class="logo-word">Web Studio</span></a>
+      <p class="muted footer-tag">Turning Ideas Into Digital Success.</p>
+    </div>
+    <div>
+      <h4 class="mono">Studio</h4>
+      <a href="{% url 'about' %}">About</a><a href="{% url 'portfolio' %}">Portfolio</a><a href="{% url 'contact' %}">Contact &amp; FAQ</a><a href="{% url 'login' %}">Client login</a>
+    </div>
+    <div>
+      <h4 class="mono">Services</h4>
+      {% for s in footer_services %}<a href="{% url 'contact' %}?service={{ s.slug }}">{{ s.title }}</a>{% empty %}<a href="{% url 'services' %}">All services</a>{% endfor %}
+    </div>
+    <div>
+      <h4 class="mono">Get in touch</h4>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      <a href="{{ whatsapp_url }}" {% if whatsapp_ready %}target="_blank" rel="noopener"{% endif %}>{% if whatsapp_ready %}Message on WhatsApp{% else %}Send an enquiry{% endif %}</a>
+      {% if site.phone %}<a href="tel:{{ site.phone }}">{{ site.phone }}</a>{% endif %}
+      {% if site.location %}<span class="muted">{{ site.location }}</span>{% endif %}
+    </div>
+  </div>
+  <div class="container footer-base"><span class="muted">© {% now "Y" %} {{ site.studio_name }}. All rights reserved.</span><span class="muted">Your Vision. Our Creation.</span></div>
+</footer>

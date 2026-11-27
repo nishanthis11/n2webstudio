@@ -1,0 +1,17 @@
+{% extends "studio/base.html" %}
+{% block title %}Enquiry #{{ enquiry.pk }} — Studio{% endblock %}
+{% block studio %}
+<a class="back mono" href="{% url 'dash_enquiries' %}"><i data-lucide="arrow-left"></i> Enquiries</a>
+<h1 class="h2">Enquiry #{{ enquiry.pk }} — {{ enquiry.name }}</h1>
+<div class="two-col">
+  <div>
+    <dl class="dl"><dt>Service</dt><dd>{{ enquiry.service|default:"General" }}</dd><dt>Email</dt><dd><a href="mailto:{{ enquiry.email }}">{{ enquiry.email }}</a></dd><dt>Phone</dt><dd><a href="tel:{{ enquiry.phone }}">{{ enquiry.phone }}</a></dd>{% if enquiry.business_name %}<dt>Business</dt><dd>{{ enquiry.business_name }}</dd>{% endif %}<dt>Account</dt><dd>{% if enquiry.user %}{{ enquiry.user.email }}{% else %}Guest (no account){% endif %}</dd><dt>Received</dt><dd>{{ enquiry.created_at|date:"d M Y, H:i" }}</dd></dl>
+    <h3>Brief</h3><p class="prose">{{ enquiry.brief|linebreaksbr }}</p>
+  </div>
+  <div>
+    <h3>Update status</h3>
+    <form method="post" class="form" novalidate>{% csrf_token %}{% include "partials/form_fields.html" %}<button class="btn btn-primary" type="submit">Save update</button></form>
+    <form method="post" action="{% url 'dash_enquiry_delete' enquiry.pk %}" onsubmit="return confirm('Delete this enquiry permanently?')" class="mt">{% csrf_token %}<button class="btn btn-ghost btn-sm danger" type="submit">Delete enquiry</button></form>
+  </div>
+</div>
+{% endblock %}

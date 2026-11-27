@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Create account — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="section auth"><div class="container narrow">
+  <div class="auth-card">
+    <p class="eyebrow mono">Client portal</p>
+    <h1>Create your account</h1>
+    <p class="muted">Submit enquiries, follow their status live, and keep your details up to date.</p>
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      {% include "partials/form_fields.html" %}
+      <button class="btn btn-primary full" type="submit">Create account <i data-lucide="arrow-right"></i></button>
+    </form>
+    <p class="muted small">Already registered? <a href="{% url 'login' %}">Log in</a></p>
+  </div>
+</div></section>
+{% endblock %}

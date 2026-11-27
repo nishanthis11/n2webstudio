@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <p class="eyebrow mono"><span class="dot"></span> Your Vision. Our Creation.</p>
+      <h1>{{ site.hero_title }}</h1>
+      <p class="lead">{{ site.hero_subtitle }}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="{% url 'contact' %}">Get Started <i data-lucide="arrow-right"></i></a>
+        <a class="btn btn-ghost" href="{% url 'portfolio' %}">View Our Work</a>
+      </div>
+    </div>
+    <div class="mock reveal" aria-hidden="true">
+      <div class="mock-bar"><i></i><i></i><i></i><span>yourbrand.com</span></div>
+      <div class="mock-body">
+        <aside><b></b><b></b><b></b><b></b></aside>
+        <div class="mock-main">
+          <div class="mock-hero"><b></b><b></b><span></span></div>
+          <div class="mock-cards"><div></div><div></div><div></div></div>
+          <div class="mock-chart"><i style="height:38%"></i><i style="height:55%"></i><i style="height:42%"></i><i style="height:74%"></i><i style="height:60%"></i><i style="height:92%" class="hot"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if stats %}
+<section class="stats"><div class="container stats-grid">
+  {% for s in stats %}<div><strong>{{ s.value }}</strong><span class="muted">{{ s.label }}</span></div>{% endfor %}
+</div></section>
+{% endif %}
+
+<section class="section">
+  <div class="container">
+    <div class="head"><p class="eyebrow mono">Services</p><h2>Everything your business needs to <span class="serif">show up online.</span></h2></div>
+    <div class="cells cols-3 reveal">
+      {% for s in services %}
+      <a class="cell" href="{% url 'services' %}#{{ s.slug }}"><i data-lucide="{{ s.icon }}"></i><h3>{{ s.title }}</h3><p class="muted">{{ s.summary }}</p></a>
+      {% empty %}<p class="muted pad">Services will appear here once added in the studio dashboard.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="head split"><div><p class="eyebrow mono">Featured work</p><h2>Selected <span class="serif">projects.</span></h2></div><a class="btn btn-ghost" href="{% url 'portfolio' %}">All projects</a></div>
+    <div class="grid cols-3">
+      {% for p in featured %}{% include "partials/project_card.html" %}{% empty %}<p class="muted">Projects will appear here once added in the studio dashboard.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="head"><p class="eyebrow mono">Why clients work with us</p><h2>Built for results, <span class="serif">not decoration.</span></h2></div>
+    <div class="cells cols-4 reveal">
+      <div class="cell"><i data-lucide="gauge"></i><h3>Fast by default</h3><p class="muted">Lean code and optimised assets so pages load quickly on any connection.</p></div>
+      <div class="cell"><i data-lucide="smartphone"></i><h3>Responsive everywhere</h3><p class="muted">Designed mobile-first and checked across devices and browsers.</p></div>
+      <div class="cell"><i data-lucide="message-square"></i><h3>Clear communication</h3><p class="muted">Straight answers, regular updates and a portal to track every enquiry.</p></div>
+      <div class="cell"><i data-lucide="shield-check"></i><h3>Secure &amp; maintainable</h3><p class="muted">Sensible security defaults and code your team can grow with.</p></div>
+    </div>
+  </div>
+</section>
+
+{% if testimonials %}
+<section class="section alt"><div class="container">
+  <div class="head"><p class="eyebrow mono">Client words</p><h2>What clients <span class="serif">say.</span></h2></div>
+  <div class="grid cols-3">{% for t in testimonials %}<figure class="card quote"><blockquote>“{{ t.quote }}”</blockquote><figcaption><strong>{{ t.name }}</strong><span class="muted">{{ t.role }}{% if t.role and t.company %}, {% endif %}{{ t.company }}</span></figcaption></figure>{% endfor %}</div>
+</div></section>
+{% endif %}
+
+<section class="section cta">
+  <div class="container cta-in">
+    <h2>Turning Ideas Into <span class="serif">Digital Success.</span></h2>
+    <p class="lead">Tell us what you want to build. We'll reply with a clear plan and quote.</p>
+    <div class="actions"><a class="btn btn-primary" href="{% url 'contact' %}">Start your project <i data-lucide="arrow-right"></i></a>{% if user.is_authenticated %}{% else %}<a class="btn btn-ghost" href="{% url 'register' %}">Create client account</a>{% endif %}</div>
+  </div>
+</section>
+{% endblock %}

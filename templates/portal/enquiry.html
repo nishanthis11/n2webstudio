@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Enquiry #{{ enquiry.pk }} — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container">
+  <a class="back mono" href="{% url 'portal_home' %}"><i data-lucide="arrow-left"></i> My portal</a>
+  <h1>Enquiry <span class="serif">#{{ enquiry.pk }}</span></h1>
+  <p class="lead">{{ enquiry.service|default:"General enquiry" }} · submitted {{ enquiry.created_at|date:"d M Y" }}</p>
+</div></section>
+<section class="section"><div class="container detail">
+  <div>
+    <h3>Live status</h3>
+    <ol class="track">{% for s in enquiry.steps %}<li class="{{ s.state }}"><span class="pip"></span><span>{{ s.label }}</span></li>{% endfor %}</ol>
+    {% if enquiry.studio_note %}<div class="note"><i data-lucide="message-square"></i><div><strong>Message from the studio</strong><p>{{ enquiry.studio_note|linebreaksbr }}</p></div></div>{% endif %}
+  </div>
+  <div>
+    <h3>Your brief</h3>
+    <p class="prose">{{ enquiry.brief|linebreaksbr }}</p>
+    <dl class="dl"><dt>Name</dt><dd>{{ enquiry.name }}</dd><dt>Email</dt><dd>{{ enquiry.email }}</dd><dt>Phone</dt><dd>{{ enquiry.phone }}</dd>{% if enquiry.business_name %}<dt>Business</dt><dd>{{ enquiry.business_name }}</dd>{% endif %}<dt>Last updated</dt><dd>{{ enquiry.updated_at|date:"d M Y, H:i" }}</dd></dl>
+  </div>
+</div></section>
+{% endblock %}

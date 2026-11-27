@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Page not found — {{ site.studio_name }}{% endblock %}
+{% block content %}
+<section class="section notfound"><div class="container narrow center">
+  <p class="mono big404">404</p>
+  <h1>This page <span class="serif">wandered off.</span></h1>
+  <p class="lead">The link may be broken or the page may have moved.</p>
+  <div class="actions center"><a class="btn btn-primary" href="{% url 'home' %}">Back to home</a><a class="btn btn-ghost" href="{% url 'contact' %}">Contact us</a></div>
+</div></section>
+{% endblock %}

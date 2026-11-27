@@ -1,0 +1,10 @@
+{% extends "studio/base.html" %}
+{% block title %}Enquiries — Studio{% endblock %}
+{% block studio %}
+<h1 class="h2">Enquiries</h1>
+<div class="chips"><a class="chip {% if not status %}active{% endif %}" href="{% url 'dash_enquiries' %}">All</a>{% for k, label in statuses %}<a class="chip {% if status == k %}active{% endif %}" href="?status={{ k }}">{{ label }}</a>{% endfor %}</div>
+{% if enquiries %}<div class="table-wrap"><table class="table">
+  <thead><tr><th>#</th><th>Client</th><th>Service</th><th>Account</th><th>Status</th><th>Received</th><th></th></tr></thead>
+  <tbody>{% for e in enquiries %}<tr><td class="mono">{{ e.pk }}</td><td><strong>{{ e.name }}</strong><br><span class="muted small">{{ e.email }}</span></td><td>{{ e.service|default:"General" }}</td><td>{% if e.user %}Linked{% else %}<span class="muted">Guest</span>{% endif %}</td><td>{% include "partials/status.html" %}</td><td class="muted small">{{ e.created_at|date:"d M Y" }}</td><td class="right"><a class="link" href="{% url 'dash_enquiry' e.pk %}">Open</a></td></tr>{% endfor %}</tbody>
+</table></div>{% else %}<div class="empty"><i data-lucide="inbox"></i><h3>No enquiries {% if status %}with this status{% else %}yet{% endif %}</h3></div>{% endif %}
+{% endblock %}
