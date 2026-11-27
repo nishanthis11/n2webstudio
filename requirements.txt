@@ -4,3 +4,4 @@ python-dotenv>=1.0
 whitenoise>=6.6
 # MySQL (optional): uncomment, then set DB_ENGINE=mysql in .env
 # mysqlclient>=2.2
+gunicorn
